@@ -22,7 +22,6 @@ def shuffle(mapper_out):
             else:
                 data[key[0:10]].append(v)
         prev_key = key
-    print(data)
     return data
 
 
@@ -39,12 +38,13 @@ for line in sys.stdin:
     passenger_id = cols[0]
     flight_id = cols[1]
     map_in.append(passenger_id + flight_id)
-    print(map_in)
+
 
 # running of functions, with logic to determine max_flights by a passenger
 map_out = map(map_func, map_in)
 reduce_in = shuffle(map_out)
 reduce_out = {}
+
 max_passenger = []
 max_flights = 0
 for key, values in reduce_in.items():
