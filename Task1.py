@@ -40,10 +40,9 @@ for line in sys.stdin:
     map_in.append(flight_id + from_airport)
 
 map_out = map(map_func, map_in)
-
 reduce_in = shuffle(map_out)
-
 reduce_out = {}
+
 for key, values in reduce_in.items():
     reduce_out[key] = reduce(reduce_func, values)
 
