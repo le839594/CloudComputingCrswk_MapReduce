@@ -43,8 +43,14 @@ map_out = map(map_func, map_in)
 reduce_in = shuffle(map_out)
 reduce_out = {}
 
-for key, values in reduce_in.items():
-    reduce_out[key] = reduce(reduce_func, values)
+for key_name, values in reduce_in.items():
+    try:
+        for i in values:
+            count = int(i)
+    except ValueError:
+        print("Value Error, discarding airport")
+        continue
+    reduce_out[key_name] = reduce(reduce_func, values)
 
 # output airports and number of flights from each one
 print(reduce_out)
