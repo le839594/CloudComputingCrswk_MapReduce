@@ -48,6 +48,12 @@ reduce_out = {}
 max_passenger = []
 max_flights = 0
 for key, values in reduce_in.items():
+    try:
+        for i in values:
+            count = int(i)
+    except ValueError:
+        print("Value Error, discarding passenger")
+        continue
     reduce_out[key] = reduce(reduce_func, values)
     if reduce_out[key] > max_flights:
         max_passenger = []
