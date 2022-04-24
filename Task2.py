@@ -62,5 +62,12 @@ for key, values in reduce_in.items():
     elif reduce_out[key] == max_flights:
         max_passenger.append([key])
 
-# output the passenger(s) with most flights
-print("The passenger(s) with the most flights in the data are",  *max_passenger, "with", max_flights)
+# output the passenger(s) with most flights to a txt file
+max_passengers_array = []
+for i in max_passenger:
+    max_passengers_array.append(i[0]+" ")
+max_passengers_str = ''.join(max_passengers_array)
+
+file = open("Task2_output.txt", "w")
+file.write("The passenger(s) with the most flights in the data are " + max_passengers_str + "with " + str(max_flights))
+file.close

@@ -52,8 +52,14 @@ for key_name, values in reduce_in.items():
         continue
     reduce_out[key_name] = reduce(reduce_func, values)
 
-# output airports and number of flights from each one
+# output airports and number of flights from each to a txt file
 print(reduce_out)
+
+res = ",".join("{}={}".format(*i) for i in reduce_out.items())
+
+file = open("Task1_output.txt", "w")
+file.write(res)
+file.close
 
 
 
