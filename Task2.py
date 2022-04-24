@@ -69,5 +69,5 @@ for i in max_passenger:
 max_passengers_str = ''.join(max_passengers_array)
 
 file = open("Task2_output.txt", "w")
-file.write("The passenger(s) with the most flights in the data are " + max_passengers_str + "with " + str(max_flights))
+file.write("The passenger(s) ID(s) with the most flights in the data are " + max_passengers_str + "with " + str(max_flights))
 file.close

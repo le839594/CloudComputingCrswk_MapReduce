@@ -60,4 +60,15 @@ if __name__ == '__main__':
                 max_flights = i[1]
             elif i[1] == max_flights:
                 max_passenger.append(i[0])
-        print("The passenger(s) with the most flights in the data are", *(max_passenger), "with", max_flights)
+        # output the passenger(s) with most flights to a txt file
+        max_passengers_array = []
+        print(max_passenger)
+        for i in max_passenger:
+            max_passengers_array.append(i[:] + " ")
+        max_passengers_str = ''.join(max_passengers_array)
+
+        file = open("Task2_output.txt", "w")
+        file.write("The passenger(s) ID(s) with the most flights in the data are " + max_passengers_str + "with " + str(
+            max_flights))
+        file.close
+
