@@ -41,7 +41,16 @@ for line in sys.stdin:
     cols = line.split(',')
     passenger_id = cols[0]
     flight_id = cols[1]
-    map_in.append(passenger_id + flight_id)
+    key = passenger_id + flight_id
+    # error handling for key by checking its alphanumeric and length is 18 (10 + 8) and checking middle 4 digits (of passenger ID) are integers
+    if key.isalnum() and len(key) == 18:
+        print("Hit", key)
+        try:
+            id_check = int(key[3:7])
+        except ValueError:
+            print("ID Error, discarding line")
+            break
+        map_in.append(key)
 
 if __name__ == '__main__':
     with mp.Pool(processes=mp.cpu_count()) as pool:

@@ -3,6 +3,12 @@ import multiprocessing as mp
 
 # the map function that takes the key as an input
 def map_func(x):
+    # determine what thread number is being run
+    if mp.current_process().name == 'MainProcess':
+        print('Running on main process')
+    else:
+        rank = mp.current_process()._identity[0]
+        #print(f'Running on process: {rank}')
     return (x, 1)
 
 
@@ -29,6 +35,12 @@ def reduce_func(x, *args):
     airport = x[0]
     numbers = x[1]
     total = sum(numbers)
+    # determine what thread number is being run
+    if mp.current_process().name == 'MainProcess':
+        print('Running on main process')
+    else:
+        rank = mp.current_process()._identity[0]
+        # print(f'Running on process: {rank}')
     return airport, total
 
 # process input dataset for input to mapper, the flight_id and from_airport make up the key
@@ -38,7 +50,18 @@ for line in sys.stdin:
     cols = line.split(',')
     flight_id = cols[1]
     from_airport = cols[2]
-    map_in.append(flight_id + from_airport)
+    #print(flight_id, from_airport)
+    key = flight_id + from_airport
+    # error handling for key by checking its alphanumeric and length is 11 (8 + 3) and checking middle 4 digits (of flight ID) are integers
+    if key.isalnum() and len(key) == 11:
+        print("Hit", key)
+        try:
+            id_check = int(key[3:7])
+        except ValueError:
+            print("ID Error, discarding line")
+            break
+
+        map_in.append(key)
 
 
 if __name__ == '__main__':
@@ -48,7 +71,7 @@ if __name__ == '__main__':
 
         reduce_in = shuffle(map_out)
         # use of multiprocessing in reducing operation
-        reduce_out = pool.map(reduce_func, reduce_in.items(), chunksize=int(len(reduce_in.keys()) / mp.cpu_count()))
+        reduce_out = pool.map(reduce_func, reduce_in.items(), chunksize=int(len(reduce_in.keys())/mp.cpu_count()))
         # output airports and number of flights from each to a txt file
         airports = []
         j = 0
