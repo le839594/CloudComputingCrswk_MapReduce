@@ -44,7 +44,6 @@ for line in sys.stdin:
     key = passenger_id + flight_id
     # error handling for key by checking its alphanumeric and length is 18 (10 + 8) and checking middle 4 digits (of passenger ID) are integers
     if key.isalnum() and len(key) == 18:
-        print("Hit", key)
         try:
             id_check = int(key[3:7])
         except ValueError:

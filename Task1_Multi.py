@@ -52,9 +52,9 @@ for line in sys.stdin:
     from_airport = cols[2]
     #print(flight_id, from_airport)
     key = flight_id + from_airport
-    # error handling for key by checking its alphanumeric and length is 11 (8 + 3) and checking middle 4 digits (of flight ID) are integers
+    # error handling for key by checking its alphanumeric and length is 11 (8 + 3)
+    # and checking middle 4 digits (of flight ID) are integers
     if key.isalnum() and len(key) == 11:
-        print("Hit", key)
         try:
             id_check = int(key[3:7])
         except ValueError:
