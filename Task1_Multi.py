@@ -49,15 +49,20 @@ if __name__ == '__main__':
         reduce_in = shuffle(map_out)
         # use of multiprocessing in reducing operation
         reduce_out = pool.map(reduce_func, reduce_in.items(), chunksize=int(len(reduce_in.keys()) / mp.cpu_count()))
-        print(type(reduce_out))
         # output airports and number of flights from each to a txt file
         airports = []
+        j = 0
         for i in reduce_out:
-            airports.append(i[0] + ":" + str(i[1]) + " ")
+            if j == 0:
+                airports.append("\n" + i[0] + ":" + str(i[1]) + "\n")
+                j = 1
+            else:
+                airports.append(i[0] + ":" + str(i[1]) + "\n")
         airports_str = ''.join(airports)
+        airports_str = airports_str[:-1]
 
         file = open("Task1_output.txt", "w")
-        file.write(airports_str)
+        file.write("The counts for flights from each airport are: " + airports_str)
         file.close
 
 
