@@ -83,4 +83,3 @@ if __name__ == '__main__':
         file.write("The passenger(s) ID(s) with the most flights in the data are: " + max_passengers_str + " with " + str(
             max_flights) + " flights.")
         file.close
-

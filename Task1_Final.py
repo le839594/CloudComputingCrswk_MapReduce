@@ -1,6 +1,7 @@
 import sys
 import multiprocessing as mp
 
+
 # the map function that takes the key as an input
 def map_func(x):
     # determine what thread number is being run
@@ -30,6 +31,7 @@ def shuffle(mapper_out):
         prev_key = key
     return data
 
+
 # reduce the entry for each passenger e.g. (airport123: 1,1) would become (airport123: 2)
 def reduce_func(x, *args):
     airport = x[0]
@@ -50,7 +52,6 @@ for line in sys.stdin:
     cols = line.split(',')
     flight_id = cols[1]
     from_airport = cols[2]
-    #print(flight_id, from_airport)
     key = flight_id + from_airport
     # error handling for key by checking its alphanumeric and length is 11 (8 + 3)
     # and checking middle 4 digits (of flight ID) are integers
@@ -87,6 +88,3 @@ if __name__ == '__main__':
         file = open("Task1_output.txt", "w")
         file.write("The counts for flights from each airport are: " + airports_str)
         file.close
-
-
-
